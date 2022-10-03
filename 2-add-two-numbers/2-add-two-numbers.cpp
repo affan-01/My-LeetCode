@@ -10,46 +10,34 @@
  */
 class Solution {
 public:
-    ListNode* find_list(vector <int> num)
-    {
-        ListNode* head = new ListNode;
-        ListNode* curr = head;
-        for(int i = 0 ; i < num.size() ; ++i)
-        {
-            ListNode* LLNode = new ListNode;
-            LLNode->val = num[i];
-            curr->next = LLNode;
-            curr = LLNode;
-        }
-        return head->next;
-    }
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        
+        ListNode* dummyHead = new ListNode;
+        ListNode* curr = dummyHead; 
         int carry = 0 ;
-        vector <int> num;
-        while(l1 != NULL && l2 != NULL)
+        while(l1 != NULL || l2 != NULL || carry != 0)
         {
-            num.push_back((l1->val+l2->val+carry)%10);
-            carry = (l1->val+l2->val+carry)/10;
-            l1 = l1->next;
-            l2 = l2->next;
+            int x , y ;
+            if(l1 != NULL)
+                x = l1->val;
+            else
+                x = 0 ;
+            if(l2 != NULL)
+                y = l2->val;
+            else
+                y = 0;
+            int sum = x+y+carry;
+            carry = sum/10;
+            ListNode* node = new ListNode;
+            curr->next = node;
+            node->val = sum%10;
+            curr = curr->next;
+            if(l1 != NULL)
+                l1 = l1->next;
+            if(l2 != NULL)
+                l2 = l2->next;
+            
+                
         }
-        while(l1 != NULL)
-        {
-            num.push_back((l1->val+carry)%10);
-            carry = (l1->val+carry)/10;
-            l1 = l1->next;
-        }
-        while(l2 != NULL)
-        {
-            num.push_back((l2->val+carry)%10);
-            carry = (l2->val+carry)/10;
-            l2 = l2->next;
-        }
-        if(carry == 1)
-            num.push_back(1);
-        
-        return find_list(num);
+        return dummyHead->next;
     }
-   
 };
