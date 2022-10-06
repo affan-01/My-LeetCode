@@ -1,21 +1,20 @@
 class Solution {
 public:
     bool isSubsequence(string s, string t) {
-        int ps = 0 , pt  = 0; // 2 pointers
-        int count = 0 ;
-        while(pt < t.size())
+        int p1 = 0 , p2 = 0;
+        while(p2 < t.size())
         {
-            if(s[ps] == t[pt])
+            if(t[p2] == s[p1])
             {
-                ++ps;
-                ++count;
+                p1++;
+                p2++;
             }
-            ++pt;
+            else
+                p2++;
         }
-        if(count == s.size())
+        if(p1 == s.size())
             return true;
         else
             return false;
-        
     }
 };
